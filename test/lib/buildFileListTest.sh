@@ -20,9 +20,6 @@ function InitGitRepositoryAndCommitFiles() {
     git -C "${REPOSITORY_PATH}" add .
   fi
   git -C "${REPOSITORY_PATH}" commit --allow-empty -m "Initial commit"
-  # shellcheck disable=SC2034
-  GIT_ROOT_COMMIT_SHA="$(git -C "${REPOSITORY_PATH}" rev-parse HEAD)"
-  debug "GIT_ROOT_COMMIT_SHA: ${GIT_ROOT_COMMIT_SHA}"
 
   if [[ "${FILES_TO_COMMIT}" -gt 0 ]]; then
     GITHUB_BEFORE_SHA=$(git -C "${REPOSITORY_PATH}" rev-parse HEAD)
@@ -80,9 +77,7 @@ function GenerateFileDiffOneFilePushEventTest() {
 function GenerateFileDiffInitialCommitPushEventTest() {
   FILES_TO_COMMIT=0
   COMMIT_FILE_INITIAL_COMMIT="true"
-  GITHUB_EVENT_NAME="push"
   GenerateFileDiffOneFileTest "${FUNCNAME[0]}"
-  unset GITHUB_EVENT_NAME
 }
 
 function GenerateFileDiffTwoFilesTest() {

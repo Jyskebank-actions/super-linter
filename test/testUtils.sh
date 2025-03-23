@@ -265,6 +265,10 @@ initialize_git_repository_and_test_args() {
   git -C "${GIT_REPOSITORY_PATH}" add .
   git -C "${GIT_REPOSITORY_PATH}" commit -m "feat: initial commit"
 
+  # shellcheck disable=SC2034
+  GIT_ROOT_COMMIT_SHA="$(git -C "${GIT_REPOSITORY_PATH}" rev-parse HEAD)"
+  debug "GIT_ROOT_COMMIT_SHA: ${GIT_ROOT_COMMIT_SHA}"
+
   if [[ -v COMMAND_TO_RUN ]]; then
     # shellcheck disable=SC2034
     RUN_LOCAL=false
